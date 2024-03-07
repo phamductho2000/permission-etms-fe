@@ -15,6 +15,7 @@ import {history, useIntl} from '@@/exports';
 import {getPathname} from "@/utils";
 import Connect from "@/components/Connect";
 import Background from "/public/images/background-etms.png";
+import CustomFooter from "@/components/Footer";
 
 const isDev = process.env.NODE_ENV === 'development';
 const Wrapper = ({children, routes}: { children: React.ReactElement, routes: any }) => {
@@ -73,7 +74,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
                 return <AvatarDropdown menu={true}>{avatarChildren}</AvatarDropdown>;
             },
         },
-        footerRender: () => <Footer/>,
+        footerRender: () => <CustomFooter/>,
         onPageChange: () => {
             const pathname = getPathname();
             const {search} = window.location;

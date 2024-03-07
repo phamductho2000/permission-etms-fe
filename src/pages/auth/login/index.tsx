@@ -4,7 +4,8 @@ import {flushSync} from 'react-dom';
 import {getGlobalState} from '@/core/global.state';
 import LoadingPage from '@/components/LoadingPage';
 import {history} from '@@/exports';
-import {Button, Card, Form, Input} from "antd";
+import {Button, Card, Col, Form, Input, Row} from "antd";
+import LogoLogin from "public/images/logo-login.jpg"
 
 const Login: React.FC = () => {
     const {initialState, setInitialState} = useModel('@@initialState');
@@ -62,8 +63,12 @@ const Login: React.FC = () => {
         {/*{loggingType === 'ERROR' && <LoadingPage loading={false} message='Có lỗi xảy ra trong quá trình đăng nhập'*/}
         {/*                                          action={<Button onClick={fetchUserInfo}>Thử lại</Button>}/>}*/}
         {/*<ChooseCSDT ref={chooseCSDTRef}/>*/}
-            <Card className={"login"}>
-                <h2 className={"text-center"}>Đăng nhập</h2>
+{/*<Row className={"login"}>*/}
+{/*    <Col>*/}
+        <div  className={"login"}>
+            <Card className={"login-form"}>
+
+                <h2 className={"text-center"}>Hệ thống Kho lưu trữ</h2>
                 <Form layout={"vertical"} onFinish={onLogin}>
                     <Form.Item name={"username"} label={"Tên đăng nhập"} required>
                         <Input size={"large"}></Input>
@@ -74,6 +79,14 @@ const Login: React.FC = () => {
                     <Button type={'primary'} className={"w-full"} size={"large"}>Đăng nhập</Button>
                 </Form>
             </Card>
+        </div>
+
+    {/*</Col>*/}
+{/*    <Col>*/}
+{/*        <img src={'https://hocvien.tiki.vn/wp-content/uploads/2021/11/online-tax-payment-concept.jpg'} width={"80%"} height={500} alt={""}/>*/}
+{/*    </Col>*/}
+{/*</Row>*/}
+
     </>
 };
 
