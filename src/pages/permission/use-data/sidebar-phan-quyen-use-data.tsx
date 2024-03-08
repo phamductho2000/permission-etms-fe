@@ -111,7 +111,7 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
 
                     <Row>
                         <Flex justify={"space-between"} gap={"large"}>
-                            <Search placeholder="Nhập tên người dùng"  enterButton />
+                            <Search placeholder="Nhập tên người dùng"  enterButton style={{width: "630px"}}/>
                             <Button type="primary" >
                                 Lưu
                             </Button>
