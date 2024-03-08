@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Button, Flex, Table} from "antd";
+import Search from "antd/es/input/Search";
 
 export default function TabQuyenNguoiDung ({open, record}: any) {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -49,7 +50,7 @@ export default function TabQuyenNguoiDung ({open, record}: any) {
     return (
         <>
             <Flex justify={"space-between"} gap={"large"}>
-                {/*<Search placeholder="Nhập tên người dùng"  enterButton />*/}
+                <Search placeholder="ID or Chức Năng"  enterButton />
                 {/*<Button type="primary" onClick={() => createFormRef.current?.create()}>*/}
                 {/*    Thêm mới*/}
                 {/*</Button>*/}
