@@ -107,7 +107,7 @@ export default function ManageUser() {
                                 <HcmaSelect hcmaOptions={data} key={'key'} hcmaLabel={'value'}/>
                             </Form.Item>
                             <Form.Item label={"Cục thuế"} style={{width: "350px"}} >
-                                <HcmaSelect />
+                                <HcmaSelect/>
                             </Form.Item>
                             <Form.Item label={"Chi cục thuế"} style={{width: "350px"}} >
                                 <HcmaSelect />
