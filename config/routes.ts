@@ -22,16 +22,16 @@ export default [
             }
         ],
     },
-    {
-        path: '/welcome',
-        name: 'welcome',
-        icon: 'smile',
-        component: './Welcome',
-    },
+    // {
+    //     path: '/welcome',
+    //     name: 'welcome',
+    //     icon: 'smile',
+    //     component: './Welcome',
+    // },
     {
         path: '/phan-quyen',
         name: 'Phân quyền',
-        icon: 'crown',
+        icon: 'SafetyOutlined',
         // code: 'DANH_MUC',
         // access: 'canAccessMenu',
         routes: [
@@ -41,7 +41,7 @@ export default [
                 component: './permission/function',
                 // code: 'DM__DMDC',
                 // access: 'canAccessMenu',
-                icon: 'crown'
+                icon: 'SettingOutlined'
             },
             {
                 path: 'nhom',
@@ -49,7 +49,7 @@ export default [
                 component: './permission/group',
                 // code: 'DM__DMDC',
                 // access: 'canAccessMenu',
-                icon: 'crown'
+                icon: 'TeamOutlined'
             },
             {
                 path: 'du-lieu',
@@ -57,7 +57,7 @@ export default [
                 component: './permission/use-data',
                 // code: 'DM__DMDC',
                 // access: 'canAccessMenu',
-                icon: 'crown'
+                icon: 'DatabaseOutlined'
             },
             {
                 path: 'nguoi-dung',
@@ -65,7 +65,7 @@ export default [
                 component: './permission/user',
                 // code: 'DM__DMDC',
                 // access: 'canAccessMenu',
-                icon: 'crown'
+                icon: 'UserOutlined'
             },
         ],
     },

@@ -41,13 +41,13 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
     const data = [
         {
             key: '1',
-            maCqt: "sdasdgajhgdaj",
-            tenCqt: "dcmđâsdasdasmmm",
+            maCqt: "CQ12",
+            tenCqt: "Ten Co quan thue 1",
         },
         {
             key: '2',
-            maCqt: "sdasdgajhgdaj",
-            tenCqt: "dcsdasdasdasdmmmm",
+            maCqt: "CQ23",
+            tenCqt: "Ten Co quan thue 2",
         },
     ]
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -125,7 +125,7 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
                     columns={columns}
                     style={{marginTop: 14}}
                     // pagination={pagination}
-                    rowKey="id"
+                    rowKey="key"
                 />
             </Drawer>
         </>
