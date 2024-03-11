@@ -4,8 +4,18 @@ import {flushSync} from 'react-dom';
 import {getGlobalState} from '@/core/global.state';
 import LoadingPage from '@/components/LoadingPage';
 import {history} from '@@/exports';
-import {Button, Card, Col, Form, Input, Row} from "antd";
+import {Button, Card, Col, Form, Input, Row, Select} from "antd";
 import LogoLogin from "public/images/logo-login.jpg"
+import HcmaSelect from "@/components/HcmaSelect";
+
+const options = [{
+    value: 1,
+    label: 'vp.tct.vn'
+}, {
+    value: 2,
+    label: 'vp.tct.vn2'
+}
+]
 
 const Login: React.FC = () => {
     const {initialState, setInitialState} = useModel('@@initialState');
@@ -43,20 +53,22 @@ const Login: React.FC = () => {
     };
 
     useEffect(() => {
-        if (initialState?.currentUser) {
-            // nếu đã đăng nhập thì chuyển hướng
-            redirectUrl();
-        } else {
-            // nếu chưa đăng nhập thì request đăng nhập
-            fetchUserInfo();
-        }
+        // if (initialState?.currentUser) {
+        //     // nếu đã đăng nhập thì chuyển hướng
+        //     redirectUrl();
+        // } else {
+        //     // nếu chưa đăng nhập thì request đăng nhập
+        //     fetchUserInfo();
+        // }
     }, [initialState]);
 
     const onLogin = () => {
         form.validateFields().then(formValue => {
-            redirectUrl();
+            // redirectUrl();
         })
     }
+
+
 
     return <>
         {/*{loggingType === 'LOGGING' && <LoadingPage message='Đăng nhập hệ thống...'/>}*/}
@@ -65,21 +77,24 @@ const Login: React.FC = () => {
         {/*<ChooseCSDT ref={chooseCSDTRef}/>*/}
 {/*<Row className={"login"}>*/}
 {/*    <Col>*/}
-        <div  className={"login"}>
-            <Card className={"login-form"}>
+{/*        <div  className={"login"}>*/}
+            <Card className={"login-form login"}>
 
                 <h2 className={"text-center"}>Hệ thống Kho lưu trữ</h2>
-                <Form layout={"vertical"} onFinish={onLogin}>
-                    <Form.Item name={"username"} label={"Tên đăng nhập"} required>
+                <Form form={form} layout={"vertical"} onFinish={onLogin}>
+                    <Form.Item name={"username"} label={"Tên đăng nhập"} rules={[{required: true}]}>
                         <Input size={"large"}></Input>
                     </Form.Item>
-                    <Form.Item name={"password"} label={"Mật khẩu"} required>
+                    <Form.Item name={"password"} label={"Mật khẩu"} rules={[{required: true}]}>
                         <Input size={"large"}></Input>
                     </Form.Item>
-                    <Button type={'primary'} className={"w-full"} size={"large"}>Đăng nhập</Button>
+                    <Form.Item name={"domain"} label={"Domain"} rules={[{required: true}]}>
+                        <HcmaSelect size={"large"} hcmaOptions={options} hcmaKey={'value'} hcmaLabel={'label'}/>
+                    </Form.Item>
+                    <Button type={'primary'} className={"w-full"} size={"large"} onClick={onLogin}>Đăng nhập</Button>
                 </Form>
             </Card>
-        </div>
+        {/*</div>*/}
 
     {/*</Col>*/}
 {/*    <Col>*/}

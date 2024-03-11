@@ -21,19 +21,31 @@ export default function ManageUseData() {
     const dataSource = [
         {
             key: '1',
-            id: "23123123",
-            name: '212121',
-            tenTruyCap: "fixdata1",
-            hoVaTen: "testthue1",
-            tenCqt: '10 Downing Street',
+            id: "18460",
+            tenTruyCap: "dtphuong03",
+            hoVaTen: "Phuong, Duong Thu Phuong (DNL-TCT)",
+            tenCqt: 'Cục thuế Doanh nghiệp lớn',
         },
         {
             key: '2',
-            id: "id2312313",
-            name: '121212',
-            tenTruyCap: "fixdata2",
-            hoVaTen: "testthue2",
-            tenCqt: '10 Downing Street',
+            id: "18465",
+            tenTruyCap: "ttbhoa",
+            hoVaTen: "Hoa, Trinh Thi Bich Hoa (DNL-TCT)",
+            tenCqt: 'Cục thuế Doanh nghiệp lớn',
+        },
+        {
+            key: '3',
+            id: "18529",
+            tenTruyCap: "nhson03",
+            hoVaTen: "Son, Nguyen Hai Son (DNL-TCT)",
+            tenCqt: 'Cục thuế Doanh nghiệp lớn',
+        },
+        {
+            key: '4',
+            id: "18533",
+            tenTruyCap: "tnvu",
+            hoVaTen: "Vu, Tran Ngoc Vu (DNL-TCT)",
+            tenCqt: 'Cục thuế Doanh nghiệp lớn',
         },
     ];
 
@@ -42,7 +54,7 @@ export default function ManageUseData() {
             title: "STT",
             dataIndex: 'stt',
             key: 'stt',
-            // render: (text: string, row: API.DmPhuongThucDaoTaoDTO, index: number) => index + 1,
+            render: (text: string, row: any, index: number) => index + 1,
         },
         {
             title: "ID",
@@ -131,7 +143,7 @@ export default function ManageUseData() {
                             columns={columns}
                             style={{marginTop: 14}}
                             // pagination={{...paginationProps, total: total}}
-                            rowKey={"ma"}
+                            rowKey={"id"}
                         />
                     </Card>
                 </div>
