@@ -3,6 +3,7 @@ import {DeleteOutlined, EditOutlined, EyeOutlined, SearchOutlined, UserAddOutlin
 import {PageContainer} from "@ant-design/pro-layout";
 import SidebarPhanQuyenUser, {RefType} from "@/pages/permission/user/sidebar-phan-quyen-user";
 import {useRef} from "react";
+import HcmaSelect from "@/components/HcmaSelect";
 
 export default function ManageUser() {
     const createSideBarRef = useRef<RefType>();
@@ -22,7 +23,14 @@ export default function ManageUser() {
             hoVaTen: "testthue2",
         },
     ];
-
+        const data = [{
+            key: '1',
+            value: "sadasdasdsad"
+        },
+            {
+                key: '2',
+                value: "sadasdabbbbbbsdsad"
+            }]
     // column table
     const columns = [
         {
@@ -96,13 +104,13 @@ export default function ManageUser() {
                     >
                         <Row>
                             <Form.Item label={"Tổng cục thuế"} style={{width: "350px"}} >
-                                <Select />
+                                <HcmaSelect hcmaOptions={data} key={'key'} hcmaLabel={'value'}/>
                             </Form.Item>
                             <Form.Item label={"Cục thuế"} style={{width: "350px"}} >
-                                <Select />
+                                <HcmaSelect />
                             </Form.Item>
                             <Form.Item label={"Chi cục thuế"} style={{width: "350px"}} >
-                                <Select />
+                                <HcmaSelect />
                             </Form.Item>
                             <Form.Item label={""} style={{width: "250px", marginLeft: "100px"}} >
                                 <Input placeholder="ID or Họ và Tên" />
