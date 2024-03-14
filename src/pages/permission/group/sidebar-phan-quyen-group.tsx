@@ -1,16 +1,15 @@
 import React, {useImperativeHandle, useState} from "react";
-import {Button, Drawer, Flex, Form, notification, Row, Table, Tabs, TabsProps} from "antd";
-import Search from "antd/es/input/Search";
+import {Drawer, Form, notification, Tabs, TabsProps} from "antd";
 import TabChucNangChoNhomPhanQuyen from "@/pages/permission/group/tab-chuc-nang-cho-nhom-phan-quyen";
 import TabQuyenNguoiDung from "@/pages/permission/group/tab-quyen-nguoi-dung";
 
 export type RefType = {
-    create: () => void,
-    // update: (pRecord: API.QthtNhomDTO, isView: boolean) => void
+    create: (pRecord: API.AdminRoleDTO) => void,
+    update: (pRecord: API.AdminRoleDTO, isView: boolean) => void
 }
 const SidebarPhanQuyenGroup = React.forwardRef<RefType, any>((props, ref) => {
     const [open, setOpen] = useState(false);
-    const [record, setRecord] = useState<API.QthtTaikhoanDTO>();
+    const [record, setRecord] = useState<API.AdminRoleDTO>();
     const [form] = Form.useForm();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [api, contextHolder] = notification.useNotification();
@@ -25,14 +24,14 @@ const SidebarPhanQuyenGroup = React.forwardRef<RefType, any>((props, ref) => {
 
     useImperativeHandle(ref, () => {
         return {
-            create() {
+            create(pRecord: API.AdminRoleDTO) {
                 showDrawer();
-                // setRecord(pRecord);
+                setRecord(pRecord);
             },
-            update(pRecord: API.QthtNhomDTO, isView: boolean) {
-                // setRecord(pRecord);
-                // form.setFieldsValue(pRecord);
-                // setOpen(true);
+            update(pRecord: API.AdminRoleDTO, isView: boolean) {
+                setRecord(pRecord);
+                form.setFieldsValue(pRecord);
+                setOpen(true);
                 // setIsView(isView);
             },
         };
