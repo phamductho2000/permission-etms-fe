@@ -1,9 +1,21 @@
-import {useState} from "react";
-import {Button, Flex, Table} from "antd";
+import {useEffect, useState} from "react";
+import {Button, Flex, notification, Table} from "antd";
 import Search from "antd/es/input/Search";
+import {useModel} from "@@/exports";
+import {getAllAdminRoleFunction} from "@/services/apis/adminRoleFunctionController";
+import {findAllUserAdminByGroupId, getAllAdminRoleUser} from "@/services/apis/adminRoleUserController";
+import {usePagination} from "ahooks";
 
 export default function TabQuyenNguoiDung ({open, record}: any) {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [applicationList, setApplicationList] = useState<API.TblUsersDTO[]>([]);
+    const {listTblUsers, loadData} = useModel('tbl-user');
+    const {updateadRoleAdmiUserDto} = useModel('admin-role-user');
+    const [listUser, setListUser] = useState<API.AdminRoleUserDTO[]>();
+    const [api, contextHolder] = notification.useNotification();
+    const [listAdminRoleUser, setAdminRoleUser] = useState<API.AdminRoleUserDTO[]>()
+    const [total, setTotal] = useState<any>();
+    const {paginationQuery, paginationProps, onChangePagination} = usePagination({sort: 'taiKhoan,ASC'});
 
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -12,62 +24,115 @@ export default function TabQuyenNguoiDung ({open, record}: any) {
     };
 
 
+    useEffect(() => {
+        loadData(applicationList)
+    }, [open])
+
+    const handleFindAllUserByGroupId = (body: API.AdminRoleDTO) => {
+        // lấy ra findbyid của userrole
+        findAllUserAdminByGroupId(body).then((resp: any) => {
+            setListUser(resp);
+        })
+    }
+
+    useEffect(() => {
+        if (open && record) {
+            handleFindAllUser({});
+            handleFindAllUserByGroupId(record as API.AdminRoleDTO);
+        }
+    }, [open, record])
+
+    useEffect(() => {
+        // set lại nút checkbox theo funcID
+        if (listUser) {
+            const keys = listUser.map(item => item?.userId);
+            setSelectedRowKeys(keys as React.Key[]);
+            console.log('ListUser', listUser);
+        }
+    }, [listUser])
+
+    const pagination = {
+        ...paginationProps,
+        total,
+        onChange: onChangePagination
+    }
+
     const rowSelection = {
         selectedRowKeys,
         onChange: onSelectChange,
     };
-    const data = [
-        {
-            key: '1',
-            id: "316531531765",
-            chucNang: "bbbbbbbbbbbbbbb",
-        },
-        {
-            key: '2',
-            id: "aaaaaaaaaaaaaaaaaaa",
-            chucNang: "xxxxxxxxxxxxxx",
-        },
-    ]
     const columns = [
-        // {
-        //     title: intl.formatMessage({id: 'pages.category.group.table.orderNo', defaultMessage: 'STT'}),
-        //     dataIndex: 'orderNo',
-        //     key: 'orderNo',
-        //     render: (text: string, row: API.QthtTaikhoanDTO, index: number) => index + 1,
-        // },
+        {
+            title: "STT",
+            dataIndex: 'stt',
+            key: 'stt',
+            render: (text: string, row: API.TblUsersDTO, index: number) => index + 1,
+        },
         {
             title: "ID",
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: 'userId',
+            key: 'userId',
         },
         {
             title: "Chức năng",
-            dataIndex: 'chucNang',
-            key: 'chucNang',
+            dataIndex: 'username',
+            key: 'username',
         },
     ]
 
+    const handleFindAllUser = (body?: any) => {
+        getAllAdminRoleUser().then(resp => {
+            setAdminRoleUser(resp as API.AdminRoleUserDTO[]);
+            setTotal(resp?.total);
+        })
+    }
+    function onSave() {
+        console.log('listSelected', selectedRowKeys);
+        if (selectedRowKeys.length > 0) {
+            const newdata =[]
+            selectedRowKeys.forEach(e => {
+                const data = {userId: e}
+                console.log('e', data);
+                newdata.push(data)
+
+                console.log('newdata', newdata);
+            })
+            const body: API.AdminRoleUserDTO = {
+                roleId: record?.roleId,
+                tblUsersDTOS: newdata
+            }
+            console.log('record', record);
+            updateadRoleAdmiUserDto(body, (success: boolean) => {
+                if (success) {
+                    handleFindAllUser({});
+                    api['success']({message: 'Cập nhật thành công'});
+
+
+                }
+            });
+        } else {
+            api['error']({message: 'Vui lòng chọn ít nhất một người dùng'});
+        }
+    }
+
     return (
         <>
+            {contextHolder}
             <Flex justify={"space-between"} gap={"large"}>
                 <Search placeholder="ID or Chức Năng"  enterButton />
-                {/*<Button type="primary" onClick={() => createFormRef.current?.create()}>*/}
-                {/*    Thêm mới*/}
-                {/*</Button>*/}
-                <Button type="primary" >
+                <Button type="primary" onClick={onSave} >
                     Lưu
                 </Button>
             </Flex>
 
             <Table
                 rowSelection={rowSelection}
-                dataSource={data}
+                dataSource={listTblUsers}
                 columns={columns}
                 style={{marginTop: 14}}
-                // pagination={pagination}
-                rowKey="id"
+                pagination={pagination}
+                rowKey="userId"
             />
-            {/*<CreateFormTaiKhoan ref={createFormRef} onReLoadList={handleFindAllUser}/>*/}
         </>
     )
 

@@ -1,73 +1,83 @@
-import {Button, Card, Form, Input, Popconfirm, Row, Space, Table, Tooltip} from "antd";
-import {DeleteOutlined, EditOutlined, EyeOutlined, SearchOutlined, UserAddOutlined} from "@ant-design/icons";
+import {Button, Card, Form, Popconfirm, Space, Table, Tooltip} from "antd";
+import {DeleteOutlined, EditOutlined, EyeOutlined, UserAddOutlined} from "@ant-design/icons";
 import {PageContainer} from "@ant-design/pro-layout";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import SidebarPhanQuyenGroup, {RefType} from "@/pages/permission/group/sidebar-phan-quyen-group";
+import CreatFromGroup, {RefTypeUserRole} from "@/pages/permission/group/creat-from-group";
+import {useModel} from "@umijs/max";
+import {usePagination} from "ahooks";
+import dayjs from "dayjs";
 
 export default function ManageGroup() {
     const createSideBarRef = useRef<RefType>();
+    const createForm = useRef<RefTypeUserRole>();
     const [form] = Form.useForm();
+    const {listAdminRole,loadData, total, deleteadminrole} = useModel('admin-role');
+    const { paginationQuery, paginationProps } = usePagination({ sort: 'ten,ASC' });
 
-    const dataSource = [
-        {
-            key: '1',
-            id: "23123123",
-            tenNhomQuyen: "fixdata1",
-            ghiChu: "testthue1",
-        },
-        {
-            key: '2',
-            id: "id2312313",
-            tenNhomQuyen: "fixdata2",
-            ghiChu: "testthue2",
-        },
-    ];
+    const handleLoadData = (formValue?: API.UserRoleDTO|null) => {
+        if (formValue) {
+            loadData(paginationQuery, formValue);
+        } else {
+            form.validateFields().then((formValue: API.AdminRoleDTO) => {
+                loadData(paginationQuery, formValue);
+                console.log('formvalue', formValue)
+            })
+        }
+    };
+
+    useEffect(() => {
+        console.log('listAdminRole', listAdminRole)
+        console.log('loadData', loadData)
+        handleLoadData();
+    }, [paginationQuery])
     // column table
     const columns = [
         {
             title: "STT",
             dataIndex: 'stt',
             key: 'stt',
-            // render: (text: string, row: API.DmPhuongThucDaoTaoDTO, index: number) => index + 1,
+            render: (text: string, row: API.AdminRoleDTO, index: number) => index + 1,
         },
         {
             title: "ID",
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: 'roleId',
+            key: 'roleId',
         },
         {
             title: "Tên nhóm quyền",
-            dataIndex: 'tenNhomQuyen',
-            key: 'tenNhomQuyen',
+            dataIndex: 'roleName',
+            key: 'roleName',
         },
         {
             title: "Ghi chú",
-            dataIndex: 'ghiChu',
-            key: 'ghiChu',
+            dataIndex: 'note',
+            key: 'note',
         },
         {
             title: "Ngày cập nhật",
-            dataIndex: 'ngayCapNhat',
-            key: 'ngayCapNhat',
+            dataIndex: 'updatedDate',
+            key: 'updatedDate',
+            render: (text: string, row: API.AdminRoleDTO) => row?.updatedDate ? dayjs(row?.updatedDate).format("DD/MM/YYYY hh:mm:ss") : '',
         },
         {
             title: "Thao tác",
             dataIndex: 'id',
             key: 'id',
-            render: (id: string, record: API.DmPhuongThucDaoTaoDTO) =>
+            render: (id: string, record: API.AdminRoleDTO) =>
                 <Space>
                     <Tooltip placement="top" title='Xem'>
-                        <Button onClick={() => createSideBarRef.current?.update(record, true)}
+                        <Button onClick={() => createForm.current?.update(record, true)}
                                 icon={<EyeOutlined/>}>
                         </Button>
                     </Tooltip>
 
                     <Tooltip placement="top" title='Sửa'>
-                        <Button onClick={() => createSideBarRef.current?.update(record, false)}
+                        <Button onClick={() => createForm.current?.update(record, false)}
                                 icon={<EditOutlined/>}></Button>
                     </Tooltip>
                     <Tooltip placement="top" title='Phân quyền'>
-                        <Button onClick={() => createSideBarRef.current?.create()}
+                        <Button onClick={() => createSideBarRef.current?.create(record)}
                                 icon={<UserAddOutlined/>}>
                         </Button>
                     </Tooltip>
@@ -77,7 +87,7 @@ export default function ManageGroup() {
                         description={"Bạn có chắc chắn muốn xóa bản ghi này?"}
                         okText="Đồng ý"
                         cancelText="Hủy" onConfirm={() => {
-                        // deleteRecord(id);
+                        deleteadminrole(id)
                     }}
                     >
                         <Tooltip title={"xóa bản ghi"}><Button danger icon={<DeleteOutlined/>}></Button></Tooltip>
@@ -106,20 +116,21 @@ export default function ManageGroup() {
                 <div>
                     <Card>
                         <Space>
-                            <Button type='primary' onClick={() => createFormRef.current?.create(false)}>Thêm mới</Button>
+                            <Button type='primary' onClick={() => createForm.current?.create(false)}>Thêm mới</Button>
                             {/*<Button icon={<ReloadOutlined/>} onClick={handleLoadData}></Button>*/}
                         </Space>
                         <Table
-                            dataSource={dataSource}
+                            dataSource={listAdminRole}
                             columns={columns}
                             style={{marginTop: 14}}
-                            // pagination={{...paginationProps, total: total}}
+                            pagination={{...paginationProps, total: total}}
                             rowKey={"ma"}
                         />
                     </Card>
                 </div>
             </PageContainer>
             <SidebarPhanQuyenGroup ref={createSideBarRef}/>
+            <CreatFromGroup ref={createForm}/>
 
         </>
     )

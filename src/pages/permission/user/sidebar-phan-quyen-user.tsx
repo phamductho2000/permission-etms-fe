@@ -10,6 +10,8 @@ const SidebarPhanQuyenUser = React.forwardRef<RefType, any>((props, ref) => {
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [listSelected, setListSelected] = useState<any[]>([]);
+    const [listChecked, setListChecked] = useState<any[]>([]);
 
     const showDrawer = () => {
         setOpen(true);
@@ -130,6 +132,8 @@ const SidebarPhanQuyenUser = React.forwardRef<RefType, any>((props, ref) => {
                     dataSource={data}
                     columns={columns}
                     style={{marginTop: 14}}
+                    selectedKeys={listSelected}
+                    checkedKeys={listChecked}
                     // pagination={pagination}
                     rowKey="id"
                 />

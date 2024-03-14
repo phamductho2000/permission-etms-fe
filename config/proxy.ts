@@ -2,13 +2,13 @@
  * @doc https://umijs.org/docs/guides/proxy
  */
 export default {
-    // dev: {
-    //     // localhost:8000/api/** -> http://localhost:8001/api/**
-    //     '/api/': {
-    //         target: 'http://qldt.hcma.vn/api',
-    //         changeOrigin: true,
-    //     },
-    // },
+    dev: {
+        // localhost:8000/api/** -> http://localhost:8001/api/**
+        '/api/': {
+            target: 'http://localhost:8081',
+            changeOrigin: true,
+        },
+    },
     // test: {
     //     '/api/': {
     //         target: '',

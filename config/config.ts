@@ -65,14 +65,14 @@ export default defineConfig({
     /**
      * @doc https://pro.ant.design/zh-cn/docs/openapi/
      */
-    // openAPI: [
-    //     {
-    //         requestLibPath: "import { request } from '@umijs/max'",
-    //         schemaPath: REACT_APP_ENV === 'dev' ? 'http://localhost:8081/v3/api-docs' : 'http://10.15.68.54:8081/v3/api-docs',
-    //         projectName: 'apis',
-    //         mock: false
-    //     },
-    // ],
+    openAPI: [
+        {
+            requestLibPath: "import { request } from '@umijs/max'",
+            schemaPath: REACT_APP_ENV === 'dev' ? 'http://localhost:8081/v3/api-docs' : 'http://10.15.68.54:8081/v3/api-docs',
+            projectName: 'apis',
+            mock: false
+        },
+    ],
     mfsu: {
         strategy: 'normal',
     },

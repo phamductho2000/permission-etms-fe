@@ -82,16 +82,16 @@ export default function ManageUseData() {
             key: 'id',
             render: (id: string, record: API.DmPhuongThucDaoTaoDTO) =>
                 <Space>
-                    <Tooltip placement="top" title='Xem'>
-                        <Button onClick={() => createSideBarRef.current?.update(record, true)}
-                                icon={<EyeOutlined/>}>
-                        </Button>
-                    </Tooltip>
+                    {/*<Tooltip placement="top" title='Xem'>*/}
+                    {/*    <Button onClick={() => createSideBarRef.current?.update(record, true)}*/}
+                    {/*            icon={<EyeOutlined/>}>*/}
+                    {/*    </Button>*/}
+                    {/*</Tooltip>*/}
 
-                    <Tooltip placement="top" title='Sửa'>
-                        <Button onClick={() => createSideBarRef.current?.update(record, false)}
-                                icon={<EditOutlined/>}></Button>
-                    </Tooltip>
+                    {/*<Tooltip placement="top" title='Sửa'>*/}
+                    {/*    <Button onClick={() => createSideBarRef.current?.update(record, false)}*/}
+                    {/*            icon={<EditOutlined/>}></Button>*/}
+                    {/*</Tooltip>*/}
                     <Tooltip placement="top" title='Phân quyền'>
                         <Button onClick={() => createSideBarRef.current?.create()}
                                 icon={<UserAddOutlined/>}>
