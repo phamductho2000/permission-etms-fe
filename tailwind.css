@@ -80,6 +80,6 @@ svg {
 }
 
 body {
-    background-image: url("https://vinabookkeeping.com/wp-content/uploads/2021/12/1-1.jpg") !important;
-    backdrop-filter: brightness(0.5) !important;
+    /*background-image: url("https://vinabookkeeping.com/wp-content/uploads/2021/12/1-1.jpg") !important;*/
+    background: linear-gradient(rgb(14 0 0 / 50%), rgb(27 25 25 / 50%)), url("https://vinabookkeeping.com/wp-content/uploads/2021/12/1-1.jpg") !important;
 }

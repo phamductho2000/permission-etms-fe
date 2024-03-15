@@ -15,7 +15,7 @@ export default function ManageGroup() {
     const {listAdminRole,loadData, total, deleteadminrole} = useModel('admin-role');
     const { paginationQuery, paginationProps } = usePagination({ sort: 'ten,ASC' });
 
-    const handleLoadData = (formValue?: API.UserRoleDTO|null) => {
+    const handleLoadData = (formValue?: API.UserRoleDTO) => {
         if (formValue) {
             loadData(paginationQuery, formValue);
         } else {
@@ -130,7 +130,7 @@ export default function ManageGroup() {
                 </div>
             </PageContainer>
             <SidebarPhanQuyenGroup ref={createSideBarRef}/>
-            <CreatFromGroup ref={createForm}/>
+            <CreatFromGroup ref={createForm} onReLoadList={handleLoadData} />
 
         </>
     )
