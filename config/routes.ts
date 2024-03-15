@@ -35,14 +35,14 @@ export default [
         // code: 'DANH_MUC',
         // access: 'canAccessMenu',
         routes: [
-            {
-                path: 'chuc-nang',
-                name: 'Quản lí chức năng',
-                component: './permission/function',
-                // code: 'DM__DMDC',
-                // access: 'canAccessMenu',
-                icon: 'SettingOutlined'
-            },
+            // {
+            //     path: 'chuc-nang',
+            //     name: 'Quản lí chức năng',
+            //     component: './permission/function',
+            //     // code: 'DM__DMDC',
+            //     // access: 'canAccessMenu',
+            //     icon: 'SettingOutlined'
+            // },
             {
                 path: 'nhom',
                 name: 'Quản lý nhóm quyền',

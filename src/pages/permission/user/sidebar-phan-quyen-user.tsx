@@ -153,6 +153,7 @@ const SidebarPhanQuyenUser = React.forwardRef<RefType, any>((props, ref) => {
 
     return (
         <>
+            {contextHolder}
             <Drawer
                 title="Phân quyền Gán cơ quan thuế quản lý cho NSD"
                 width={"40%"}

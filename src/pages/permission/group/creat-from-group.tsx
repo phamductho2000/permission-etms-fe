@@ -78,7 +78,7 @@ const CreatFromGroup = React.forwardRef<RefTypeAdminRole, any>((props, ref) => {
         });
     }
     return (<>
-        {/*{contextHolder}*/}
+        {contextHolder}
         <Modal open={open} onCancel={handleClose} onOk={onFinish} title={record ? isview ? 'Thông tin chi tiết' : 'Cập nhật' : 'Tạo mới'}
                footer={(_, {OkBtn}) => (
                    isview ? <></> :
@@ -92,8 +92,8 @@ const CreatFromGroup = React.forwardRef<RefTypeAdminRole, any>((props, ref) => {
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 600 }}
-                // form={form}
-                // disabled={isview}
+                form={form}
+                disabled={isview}
             >
                 <Form.Item<API.AdminRoleDTO>
                     label="ID"
