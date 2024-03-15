@@ -4,7 +4,7 @@ import React, {useImperativeHandle, useState} from "react";
 import {useModel} from "@@/exports";
 
 export type RefTypeAdminRole = {
-    create: (isChild:boolean, pRecord?: API.AdminRoleDTO) => void,
+    create: () => void,
     update: (pRecord: API.AdminRoleDTO, isView: boolean) => void,
 }
 

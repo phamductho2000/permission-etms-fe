@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import {addOrUpdateToDataSource} from "@/utils/dataUtil";
-import {getAllAdminRoleUser, updateRoleAdminUserDto} from "@/services/apis/adminRoleUserController";
+import {getAllAdminRoleUser, updateRoleAdminUserDto1,} from "@/services/apis/adminRoleUserController";
 
 export default function AdminRoleUser () {
     const [listAdminRoleUser, setAdminRoleUser] = useState<API.AdminRoleUserDTO[]>([]);
@@ -13,7 +13,7 @@ export default function AdminRoleUser () {
     }, []);
 
     const updateadRoleAdmiUserDto = useCallback((newRecord: API.AdminRoleUserDTO, callback?: (success: boolean) => void) => {
-        updateRoleAdminUserDto(newRecord).then(resp => {
+        updateRoleAdminUserDto1(newRecord).then(resp => {
             setAdminRoleUser(prev => addOrUpdateToDataSource(prev, resp, 'id'));
             callback?.(resp.success ? resp.success : false)
         })

@@ -3,7 +3,7 @@ import {Button, Drawer, Flex, Form, Row, Table} from "antd";
 import Search from "antd/es/input/Search";
 
 export type RefType = {
-    create: () => void,
+    create: (pRecord: API.QthtNhomDTO, isView: boolean) => void,
     // update: (pRecord: API.QthtNhomDTO, isView: boolean) => void
 }
 const SidebarPhanQuyenFunction = React.forwardRef<RefType, any>((props, ref) => {
