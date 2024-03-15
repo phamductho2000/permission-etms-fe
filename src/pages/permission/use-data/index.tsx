@@ -10,77 +10,51 @@ import {
 } from "@ant-design/icons";
 import {PageContainer} from "@ant-design/pro-layout";
 import SidebarPhanQuyenUseData, {RefType} from "@/pages/permission/use-data/sidebar-phan-quyen-use-data";
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import {useModel} from "@umijs/max";
 
 export default function ManageUseData() {
     const createSideBarRef = useRef<RefType>();
+    const {listUserRole, loadData} = useModel('user-role')
+    const [applicationList, setApplicationList] = useState<API.UserRoleDTO[]>([]);
 
     const [form] = Form.useForm();
 
-    // column table
-    const dataSource = [
-        {
-            key: '1',
-            id: "18460",
-            tenTruyCap: "dtphuong03",
-            hoVaTen: "Phuong, Duong Thu Phuong (DNL-TCT)",
-            tenCqt: 'Cục thuế Doanh nghiệp lớn',
-        },
-        {
-            key: '2',
-            id: "18465",
-            tenTruyCap: "ttbhoa",
-            hoVaTen: "Hoa, Trinh Thi Bich Hoa (DNL-TCT)",
-            tenCqt: 'Cục thuế Doanh nghiệp lớn',
-        },
-        {
-            key: '3',
-            id: "18529",
-            tenTruyCap: "nhson03",
-            hoVaTen: "Son, Nguyen Hai Son (DNL-TCT)",
-            tenCqt: 'Cục thuế Doanh nghiệp lớn',
-        },
-        {
-            key: '4',
-            id: "18533",
-            tenTruyCap: "tnvu",
-            hoVaTen: "Vu, Tran Ngoc Vu (DNL-TCT)",
-            tenCqt: 'Cục thuế Doanh nghiệp lớn',
-        },
-    ];
-
+    useEffect(() => {
+        loadData(applicationList)
+    }, [open]);
     const columns = [
         {
             title: "STT",
             dataIndex: 'stt',
             key: 'stt',
-            render: (text: string, row: any, index: number) => index + 1,
+            render: (text: string, row: API.UserRoleDTO, index: number) => index + 1,
         },
         {
             title: "ID",
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: 'userId',
+            key: 'userId',
         },
         {
             title: "Tên truy cập",
-            dataIndex: 'tenTruyCap',
-            key: 'tenTruyCap',
+            dataIndex: 'username',
+            key: 'username',
         },
         {
             title: "Họ Và Tên",
-            dataIndex: 'hoVaTen',
-            key: 'hoVaTen',
+            dataIndex: 'createdBy',
+            key: 'createdBy',
         },
         {
             title: "Tên CQT",
-            dataIndex: 'tenCqt',
-            key: 'tenCqt',
+            dataIndex: 'areaCode',
+            key: 'areaCode',
         },
         {
             title: "Thao tác",
             dataIndex: 'id',
             key: 'id',
-            render: (id: string, record: API.DmPhuongThucDaoTaoDTO) =>
+            render: (id: string, record: API.UserRoleDTO) =>
                 <Space>
                     {/*<Tooltip placement="top" title='Xem'>*/}
                     {/*    <Button onClick={() => createSideBarRef.current?.update(record, true)}*/}
@@ -93,7 +67,7 @@ export default function ManageUseData() {
                     {/*            icon={<EditOutlined/>}></Button>*/}
                     {/*</Tooltip>*/}
                     <Tooltip placement="top" title='Phân quyền'>
-                        <Button onClick={() => createSideBarRef.current?.create()}
+                        <Button onClick={() => createSideBarRef.current?.create(record)}
                                 icon={<UserAddOutlined/>}>
                         </Button>
                     </Tooltip>
@@ -139,7 +113,7 @@ export default function ManageUseData() {
                             {/*<Button icon={<ReloadOutlined/>} onClick={handleLoadData}></Button>*/}
                         </Space>
                         <Table
-                            dataSource={dataSource}
+                            dataSource={listUserRole}
                             columns={columns}
                             style={{marginTop: 14}}
                             // pagination={{...paginationProps, total: total}}

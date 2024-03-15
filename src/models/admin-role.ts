@@ -15,20 +15,20 @@ export default function AdminRoleModel () {
     const updateadminrole = useCallback((newRecord: API.AdminRoleDTO, callback?: (success: boolean) => void) => {
         updateAdminRole(newRecord).then(resp => {
             setAdminRole(prev => addOrUpdateToDataSource(prev, resp, 'id'));
-            // callback?.(resp.success ? resp.success : false)
+            callback?.(resp.success ? resp.success : false)
         })
     }, []);
 
     const createadminrole = useCallback((newRecord: API.AdminRoleDTO, callback?: (success: boolean) => void) => {
         createAdminRole(newRecord).then(resp => {
             setAdminRole(prev => addOrUpdateToDataSource(prev, resp, 'id'));
-            // callback?.(resp.success ? resp.success : false)
+            callback?.(resp.success ? resp.success : false)
         })
     }, []);
 
     const deleteadminrole = useCallback((id: string) => {
-        deleteAdminRole({ id }).then(() => {
-            setAdminRole(prev => prev.filter(g => g.roleId));
+        deleteAdminRole({id: id}).then(() => {
+            setAdminRole(prev => prev.filter(g => g.roleId !== id));
         })
     }, []);
 

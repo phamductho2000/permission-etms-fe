@@ -3,14 +3,14 @@ import {DeleteOutlined, EditOutlined, EyeOutlined, UserAddOutlined} from "@ant-d
 import {PageContainer} from "@ant-design/pro-layout";
 import {useEffect, useRef} from "react";
 import SidebarPhanQuyenGroup, {RefType} from "@/pages/permission/group/sidebar-phan-quyen-group";
-import CreatFromGroup, {RefTypeUserRole} from "@/pages/permission/group/creat-from-group";
+import CreatFromGroup, {RefTypeAdminRole} from "@/pages/permission/group/creat-from-group";
 import {useModel} from "@umijs/max";
 import {usePagination} from "ahooks";
 import dayjs from "dayjs";
 
 export default function ManageGroup() {
     const createSideBarRef = useRef<RefType>();
-    const createForm = useRef<RefTypeUserRole>();
+    const createForm = useRef<RefTypeAdminRole>();
     const [form] = Form.useForm();
     const {listAdminRole,loadData, total, deleteadminrole} = useModel('admin-role');
     const { paginationQuery, paginationProps } = usePagination({ sort: 'ten,ASC' });
@@ -29,6 +29,7 @@ export default function ManageGroup() {
     useEffect(() => {
         console.log('listAdminRole', listAdminRole)
         console.log('loadData', loadData)
+
         handleLoadData();
     }, [paginationQuery])
     // column table
@@ -62,8 +63,8 @@ export default function ManageGroup() {
         },
         {
             title: "Thao tác",
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: 'roleId',
+            key: 'roleId',
             render: (id: string, record: API.AdminRoleDTO) =>
                 <Space>
                     <Tooltip placement="top" title='Xem'>
