@@ -1,5 +1,5 @@
 import {useCallback, useState} from "react";
-import {getAllZtbMapCqtDto} from "@/services/apis/ztbMapCqtController";
+import {getAllBySearchZtbMapCqt, getAllZtbMapCqtDto} from "@/services/apis/ztbMapCqtController";
 
 export default function ZtpMapCqt () {
     const [listZtpMapCqt, setZtpMapCqt] = useState<API.ZtbMapCqtDTO[]>([]);
@@ -11,5 +11,13 @@ export default function ZtpMapCqt () {
         })
     }, []);
 
-    return {listZtpMapCqt, loadData, total,}
+    const loadDataBySearch = useCallback((pagination: PaginationType, body: API.ZtbMapCqtDTO) => {
+        getAllBySearchZtbMapCqt(body).then(resp => {
+            setZtpMapCqt(resp);
+            setTotal(resp.total ?? null);
+        })
+    }, []);
+
+
+    return {listZtpMapCqt, loadData, total,loadDataBySearch}
 }
