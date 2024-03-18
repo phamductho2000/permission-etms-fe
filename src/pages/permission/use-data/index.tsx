@@ -1,13 +1,5 @@
-import {Button, Card, Col, Form, Input, Popconfirm, Row, Space, Table, Tooltip} from "antd";
-import access from "@/access";
-import {
-    DeleteOutlined,
-    EditOutlined,
-    EyeOutlined,
-    ReloadOutlined,
-    SearchOutlined,
-    UserAddOutlined
-} from "@ant-design/icons";
+import {Button, Card, Form, Input, Row, Space, Table, Tooltip} from "antd";
+import {SearchOutlined, UserAddOutlined} from "@ant-design/icons";
 import {PageContainer} from "@ant-design/pro-layout";
 import SidebarPhanQuyenUseData, {RefType} from "@/pages/permission/use-data/sidebar-phan-quyen-use-data";
 import {useEffect, useRef, useState} from "react";
@@ -36,7 +28,7 @@ export default function ManageUseData() {
             key: 'userId',
         },
         {
-            title: "Tên truy cập",
+            title: "Tài khoản",
             dataIndex: 'username',
             key: 'username',
         },
@@ -45,11 +37,11 @@ export default function ManageUseData() {
             dataIndex: 'createdBy',
             key: 'createdBy',
         },
-        {
-            title: "Tên CQT",
-            dataIndex: 'areaCode',
-            key: 'areaCode',
-        },
+        // {
+        //     title: "Tên CQT",
+        //     dataIndex: 'areaCode',
+        //     key: 'areaCode',
+        // },
         {
             title: "Thao tác",
             dataIndex: 'id',

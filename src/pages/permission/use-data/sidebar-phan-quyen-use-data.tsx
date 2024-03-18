@@ -106,11 +106,11 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
             dataIndex: 'maCqt',
             key: 'maCqt',
         },
-        {
-            title: "Tên CQT",
-            dataIndex: 'tenCqtNgan',
-            key: 'tenCqtNgan',
-        },
+        // {
+        //     title: "Tên CQT",
+        //     dataIndex: 'tenCqtNgan',
+        //     key: 'tenCqtNgan',
+        // },
     ]
 
     function onSave() {
