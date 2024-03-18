@@ -1,4 +1,4 @@
-import {Button, Flex, notification, Table} from "antd";
+import {Button, Flex, Form, notification, Table} from "antd";
 import Search from "antd/es/input/Search";
 import {useEffect, useState} from "react";
 import {useModel} from "@@/exports";
@@ -7,7 +7,7 @@ import {findAllUserByGroupId, getAllAdminRoleFunction} from "@/services/apis/adm
 
 export default function TabChucNangChoNhomPhanQuyen({open, record}: any) {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const {listAdminFunc, loadData} = useModel('admin-funciton');
+    const {listAdminFunc, loadData, getAllBySearch} = useModel('admin-funciton');
     const {updateadRoleAdminFuncDto} = useModel('admin-role-funcition');
     const [listUser, setListUser] = useState<API.AdminRoleFunctionDTO[]>();
     const [applicationList, setApplicationList] = useState<API.AdminRoleFunctionDTO[]>([]);
@@ -16,6 +16,8 @@ export default function TabChucNangChoNhomPhanQuyen({open, record}: any) {
     const {paginationQuery, paginationProps, onChangePagination} = usePagination({sort: 'taiKhoan,ASC'});
     const [api, contextHolder] = notification.useNotification();
     const [close, setOpen] = useState<boolean>(false);
+    const [form] = Form.useForm();
+    const [inputSearch, setInputSearch] = useState<string>();
 
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -26,6 +28,17 @@ export default function TabChucNangChoNhomPhanQuyen({open, record}: any) {
     useEffect(() => {
         loadData(applicationList)
     }, [open])
+
+    const handleLoadData = (formValue?: API.AdminFuncDTO|null) => {
+        if (formValue) {
+            getAllBySearch(paginationQuery, formValue);
+        } else {
+            form.validateFields().then((formValue: API.AdminFuncDTO) => {
+                getAllBySearch(paginationQuery, formValue);
+                console.log('formvalue', formValue)
+            })
+        }
+    };
 
     const handleFindAllUserByGroupId = (body: API.AdminRoleDTO) => {
         // lấy ra findbyid của userrole
@@ -126,7 +139,10 @@ export default function TabChucNangChoNhomPhanQuyen({open, record}: any) {
         <>
             {contextHolder}
             <Flex justify={"space-between"} gap={"large"}>
-                <Search placeholder="ID or Chức Năng"  enterButton />
+                <Search placeholder="Chức Năng"
+                        onSearch={(e) => handleLoadData({funcName: e})}
+                        onChange={(e) => setInputSearch(e.target.value)}
+                        enterButton />
                 <Button type="primary" onClick={onSave} >
                     Lưu
                 </Button>

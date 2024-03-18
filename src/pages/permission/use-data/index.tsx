@@ -4,23 +4,36 @@ import {PageContainer} from "@ant-design/pro-layout";
 import SidebarPhanQuyenUseData, {RefType} from "@/pages/permission/use-data/sidebar-phan-quyen-use-data";
 import {useEffect, useRef, useState} from "react";
 import {useModel} from "@umijs/max";
+import {usePagination} from "ahooks";
 
 export default function ManageUseData() {
     const createSideBarRef = useRef<RefType>();
-    const {listUserRole, loadData} = useModel('user-role')
+    const {listTblUsers, loadData, getAll} = useModel('tbl-user')
     const [applicationList, setApplicationList] = useState<API.UserRoleDTO[]>([]);
+    const {paginationQuery, paginationProps} = usePagination({sort: 'taiKhoan,ASC'});
 
     const [form] = Form.useForm();
 
     useEffect(() => {
-        loadData(applicationList)
+        getAll(applicationList)
     }, [open]);
+
+    const handleLoadData = (formValue?: API.TblUsersDTO|null) => { //formValue là giá trị bất kì được điền vào các ô tra cứu, được useForm quản lý
+        if (formValue) {
+            loadData(paginationQuery, formValue);
+        } else {
+            form.validateFields().then((formValue: API.TblUsersDTO) => {
+                loadData(paginationQuery, formValue);
+                console.log('formvalue', formValue)
+            })
+        }
+    };
     const columns = [
         {
             title: "STT",
             dataIndex: 'stt',
             key: 'stt',
-            render: (text: string, row: API.UserRoleDTO, index: number) => index + 1,
+            render: (text: string, row: API.TblUsersDTO, index: number) => index + 1,
         },
         {
             title: "ID",
@@ -91,10 +104,10 @@ export default function ManageUseData() {
                         wrapperCol={{span: 16}}
                     >
                         <Row>
-                            <Form.Item label={""} style={{width: "350px"}} >
-                                <Input placeholder="ID or Họ và Tên"/>
+                            <Form.Item name={"username"}  style={{width: "350px"}} >
+                                <Input placeholder="Tài khoản"/>
                             </Form.Item>
-                            <Button type="primary" style={{marginLeft: "-80px"}} icon={<SearchOutlined />} >Tìm Kiếm</Button>
+                            <Button type="primary" style={{marginLeft: "-80px"}} icon={<SearchOutlined />} onClick={() => handleLoadData()} >Tìm Kiếm</Button>
                         </Row>
                     </Form>
                 </div>
@@ -105,7 +118,7 @@ export default function ManageUseData() {
                             {/*<Button icon={<ReloadOutlined/>} onClick={handleLoadData}></Button>*/}
                         </Space>
                         <Table
-                            dataSource={listUserRole}
+                            dataSource={listTblUsers}
                             columns={columns}
                             style={{marginTop: 14}}
                             // pagination={{...paginationProps, total: total}}

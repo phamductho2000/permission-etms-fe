@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, Flex, notification, Table} from "antd";
+import {Button, Flex, Form, notification, Table} from "antd";
 import Search from "antd/es/input/Search";
 import {useModel} from "@@/exports";
 import {getAllAdminRoleFunction} from "@/services/apis/adminRoleFunctionController";
@@ -9,13 +9,15 @@ import {usePagination} from "ahooks";
 export default function TabQuyenNguoiDung ({open, record}: any) {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [applicationList, setApplicationList] = useState<API.TblUsersDTO[]>([]);
-    const {listTblUsers, loadData} = useModel('tbl-user');
+    const {listTblUsers, loadData,  getAll} = useModel('tbl-user');
     const {updateadRoleAdmiUserDto} = useModel('admin-role-user');
     const [listUser, setListUser] = useState<API.AdminRoleUserDTO[]>();
     const [api, contextHolder] = notification.useNotification();
     const [listAdminRoleUser, setAdminRoleUser] = useState<API.AdminRoleUserDTO[]>()
     const [total, setTotal] = useState<any>();
     const {paginationQuery, paginationProps, onChangePagination} = usePagination({sort: 'taiKhoan,ASC'});
+    const [form] = Form.useForm();
+    const [inputSearch, setInputSearch] = useState<string>();
 
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -23,9 +25,20 @@ export default function TabQuyenNguoiDung ({open, record}: any) {
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
+    const handleLoadData = (formValue?: API.TblUsersDTO|null) => {
+        if (formValue) {
+            loadData(paginationQuery, formValue);
+        } else {
+            form.validateFields().then((formValue: API.TblUsersDTO) => {
+                loadData(paginationQuery, formValue);
+                console.log('formvalue', formValue)
+            })
+        }
+    };
+
 
     useEffect(() => {
-        loadData(applicationList)
+        getAll(applicationList)
     }, [open])
 
     const handleFindAllUserByGroupId = (body: API.AdminRoleDTO) => {
@@ -119,7 +132,10 @@ export default function TabQuyenNguoiDung ({open, record}: any) {
         <>
             {contextHolder}
             <Flex justify={"space-between"} gap={"large"}>
-                <Search placeholder="ID or Chức Năng"  enterButton />
+                <Search placeholder="Chức Năng"
+                        onSearch={(e) => handleLoadData({username: e})}
+                        onChange={(e) => setInputSearch(e.target.value)}
+                        enterButton />
                 <Button type="primary" onClick={onSave} >
                     Lưu
                 </Button>

@@ -15,16 +15,27 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [applicationList, setApplicationList] = useState<API.ZtbMapCqtDTO[]>([]);
     const [record, setRecord] = useState<API.UserRoleDTO>();
-    const {listZtpMapCqt, loadData} = useModel('ztp-map-cqt');
+    const {listZtpMapCqt, loadData, loadDataBySearch} = useModel('ztp-map-cqt');
     const {updateUserRoles} = useModel('user-role');
     const [api, contextHolder] = notification.useNotification();
     const {paginationQuery, paginationProps, onChangePagination} = usePagination({sort: 'taiKhoan,ASC'});
     const [listUser, setListUser] = useState<API.UserRoleDTO[]>();
     const [listUserRole, setUserRole] = useState<API.UserRoleDTO[]>();
     const [total, setTotal] = useState<any>();
+    const [inputSearch, setInputSearch] = useState<string>();
 
     const showDrawer = () => {
         setOpen(true);
+    };
+    const handleLoadData = (formValue?: API.ZtbMapCqtDTO|null) => {
+        if (formValue) {
+            loadDataBySearch(paginationQuery, formValue);
+        } else {
+            form.validateFields().then((formValue: API.ZtbMapCqtDTO) => {
+                loadDataBySearch(paginationQuery, formValue);
+                console.log('formvalue', formValue)
+            })
+        }
     };
 
     useEffect(() => {
@@ -68,6 +79,12 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
         total,
         onChange: onChangePagination
     }
+
+    // tìm kiếm
+    useEffect(() => {
+        setInputSearch("");
+        form.resetFields();
+    }, [open])
 
 
     useImperativeHandle(ref, () => {
@@ -179,7 +196,10 @@ const SidebarPhanQuyenUseData = React.forwardRef<RefType, any>((props, ref) => {
 
                     <Row>
                         <Flex justify={"space-between"} gap={"large"}>
-                            <Search placeholder="Nhập tên người dùng"  enterButton style={{width: "630px"}}/>
+                            <Search placeholder="Mã CQT"
+                                    onSearch={(e) => handleLoadData({maCqt: e})}
+                                    onChange={(e) => setInputSearch(e.target.value)}
+                                    enterButton style={{width: "630px"}}/>
                             <Button type="primary" onClick={onSave} >Lưu</Button>
                         </Flex>
                     </Row>

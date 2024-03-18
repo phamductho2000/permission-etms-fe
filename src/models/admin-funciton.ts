@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import {getAllAdminRoleFunction} from "@/services/apis/adminRoleFunctionController";
-import {getAllAdminFunc} from "@/services/apis/adminFunctionApi";
+import {getAllAdminFunc, getAllBySearch, getAllBySearchAdminFunc} from "@/services/apis/adminFunctionApi";
 
 export default function AdminFunciton () {
     const [listAdminFunc, setlistAdminFunc] = useState<API.AdminFuncDTO[]>([]);
@@ -12,5 +12,12 @@ export default function AdminFunciton () {
         })
     }, []);
 
-    return {listAdminFunc, loadData, total}
+    const getAllBySearch = useCallback((pagination: PaginationType, body: API.AdminFuncDTO) => {
+        getAllBySearchAdminFunc(body).then(resp => {
+            setlistAdminFunc(resp);
+            setTotal(resp.total ?? null);
+        })
+    }, []);
+
+    return {listAdminFunc, loadData, total, getAllBySearch}
 }
