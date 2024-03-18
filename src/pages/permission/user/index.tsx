@@ -1,13 +1,11 @@
-import {Button, Card, Form, Input, Popconfirm, Row, Select, Space, Table, Tooltip} from "antd";
-import {DeleteOutlined, EditOutlined, EyeOutlined, SearchOutlined, UserAddOutlined} from "@ant-design/icons";
+import {Button, Card, Form, Input, Row, Space, Table, Tooltip} from "antd";
+import {SearchOutlined, UserAddOutlined} from "@ant-design/icons";
 import {PageContainer} from "@ant-design/pro-layout";
 import SidebarPhanQuyenUser, {RefType} from "@/pages/permission/user/sidebar-phan-quyen-user";
 import {useEffect, useRef, useState} from "react";
 import HcmaSelect from "@/components/HcmaSelect";
 import {useModel} from "@@/exports";
 import {getAllZtbMapCqtDto} from "@/services/apis/ztbMapCqtController";
-import {Simulate} from "react-dom/test-utils";
-import change = Simulate.change;
 import {usePagination} from "ahooks";
 
 export default function ManageUser() {
