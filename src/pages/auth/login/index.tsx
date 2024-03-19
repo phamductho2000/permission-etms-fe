@@ -9,17 +9,30 @@ import LogoLogin from "public/images/logo-login.jpg"
 import HcmaSelect from "@/components/HcmaSelect";
 
 const options = [{
-    value: 1,
+    value: 'vp.tct.vn',
     label: 'vp.tct.vn'
 }, {
-    value: 2,
-    label: 'vp.tct.vn2'
-}
+    value: 'mn.tct.vn',
+    label: 'mn.tct.vn'
+},
+    {
+        value: 'mb.tct.vn',
+        label: 'mb.tct.vn'
+    },
+    {
+        value: 'hcm.tct.vn',
+        label: 'hcm.tct.vn'
+    },
+    {
+        value: 'han.tct.vn',
+        label: 'han.tct.vn'
+    },
 ]
 
 const Login: React.FC = () => {
     const {initialState, setInitialState} = useModel('@@initialState');
     const [form] = Form.useForm();
+    const {loginAuthenticate} = useModel('jwt-api')
     const [loggingType, setLoggingType] = useState<'LOGGING' | 'CHOOSE_CSDT' | 'ERROR'>('LOGGING');
     const redirectUrl = () => {
         if (!history) return;
@@ -63,7 +76,9 @@ const Login: React.FC = () => {
     }, [initialState]);
 
     const onLogin = () => {
-        form.validateFields().then(formValue => {
+        form.validateFields().then((formValue: API.Login) => {
+            const body = {...formValue}
+            loginAuthenticate(body)
             // redirectUrl();
         })
     }
