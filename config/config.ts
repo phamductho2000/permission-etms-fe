@@ -27,7 +27,7 @@ export default defineConfig({
     initialState: {
 
     },
-    title: 'HCMA',
+    title: 'HTKCSDL',
     layout: {
         locale: true,
         ...defaultSettings,
@@ -56,7 +56,7 @@ export default defineConfig({
      */
     access: {},
     headScripts: [
-        { src: '/dmdc/scripts/loading.js', async: true },
+        { src: '/scripts/loading.js', async: true },
     ],
     //================ pro 插件配置 =================
     presets: ['umi-presets-pro'],
