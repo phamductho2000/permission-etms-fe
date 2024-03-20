@@ -9,11 +9,9 @@ const { REACT_APP_ENV = 'dev' } = process.env;
 // export const APPLICATION_CONTEXT = "/dmdc/";
 export default defineConfig({
     define: {
-        APPLICATION_ID: 1,
-        APPLICATION_CODE: 'HTQT'
+        // APPLICATION_ID: 1,
+        // APPLICATION_CODE: 'HTQT'
     },
-    base: '/dmdc/',
-    publicPath: '/dmdc/',
     hash: true,
     fastRefresh: false,
     routes,
