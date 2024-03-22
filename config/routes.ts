@@ -22,12 +22,13 @@ export default [
             }
         ],
     },
-    // {
-    //     path: '/welcome',
-    //     name: 'welcome',
-    //     icon: 'smile',
-    //     component: './Welcome',
-    // },
+    {
+        path: '/welcome',
+        name: 'welcome',
+        icon: 'smile',
+        component: './Welcome',
+        hideInMenu: true
+    },
     {
         path: '/phan-quyen',
         name: 'Phân quyền',

@@ -27,7 +27,7 @@ export default defineConfig({
     initialState: {
 
     },
-    title: 'HCMA',
+    title: 'HTKCSDL',
     layout: {
         locale: true,
         ...defaultSettings,
@@ -56,7 +56,7 @@ export default defineConfig({
      */
     access: {},
     headScripts: [
-        { src: '/dmdc/scripts/loading.js', async: true },
+        { src: '/scripts/loading.js', async: true },
     ],
     //================ pro 插件配置 =================
     presets: ['umi-presets-pro'],
@@ -66,7 +66,7 @@ export default defineConfig({
     openAPI: [
         {
             requestLibPath: "import { request } from '@umijs/max'",
-            schemaPath: REACT_APP_ENV === 'dev' ? 'http://localhost:8081/v3/api-docs' : 'http://10.64.85.244:8082/v3/api-docs',
+            schemaPath: REACT_APP_ENV === 'dev' ? 'http://localhost:8082/v3/api-docs' : 'http://10.64.85.244:8082/v3/api-docs',
             projectName: 'apis',
             mock: false
         },
