@@ -27,6 +27,10 @@ const options = [{
         value: 'han.tct.vn',
         label: 'han.tct.vn'
     },
+    {
+        value: 'fiscg.local',
+        label: 'fiscg.local'
+    },
 ]
 
 const Login: React.FC = () => {

@@ -60,14 +60,14 @@ export default [
                 // access: 'canAccessMenu',
                 icon: 'DatabaseOutlined'
             },
-            {
-                path: 'nguoi-dung',
-                name: 'Quản lý người dùng',
-                component: './permission/user',
-                // code: 'DM__DMDC',
-                // access: 'canAccessMenu',
-                icon: 'UserOutlined'
-            },
+            // {
+            //     path: 'nguoi-dung',
+            //     name: 'Quản lý người dùng',
+            //     component: './permission/user',
+            //     // code: 'DM__DMDC',
+            //     // access: 'canAccessMenu',
+            //     icon: 'UserOutlined'
+            // },
         ],
     },
     {
