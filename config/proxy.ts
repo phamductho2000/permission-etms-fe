@@ -23,11 +23,11 @@ export default {
     //         pathRewrite: {'^': ''},
     //     },
     // },
-    // prod: {
-    //     '/api/': {
-    //         target: '',
-    //         changeOrigin: true,
-    //         pathRewrite: {'^': ''},
-    //     },
-    // },
+    prod: {
+        '/api/': {
+            target: 'http://10.64.149.157:8081',
+            changeOrigin: true,
+            pathRewrite: {'^': ''},
+        },
+    },
 };

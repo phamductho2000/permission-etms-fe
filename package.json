@@ -27,6 +27,7 @@
         "start:dev": "cross-env REACT_APP_ENV=dev UMI_ENV=dev max dev",
         "start:pre": "cross-env REACT_APP_ENV=pre UMI_ENV=dev max dev",
         "start:test": "cross-env REACT_APP_ENV=test UMI_ENV=dev max dev",
+        "start:prod": "cross-env REACT_APP_ENV=prod UMI_ENV=dev max dev",
         "test": "jest",
         "test:coverage": "npm run jest -- --coverage",
         "test:update": "npm run jest -- -u",
